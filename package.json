@@ -1,0 +1,34 @@
+{
+  "name": "coen174_project_web",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon client.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndyQYH/COEN174_PROJECT_WEB.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AndyQYH/COEN174_PROJECT_WEB/issues"
+  },
+  "homepage": "https://github.com/AndyQYH/COEN174_PROJECT_WEB#readme",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "express-ejs-layouts": "^2.5.1",
+    "method-override": "^3.0.0"
+  },
+  "devDependencies": {
+    "axios": "^1.1.2",
+    "nodemon": "^2.0.20"
+  },
+  "description": ""
+}

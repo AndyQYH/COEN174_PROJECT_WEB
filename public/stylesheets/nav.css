@@ -1,0 +1,82 @@
+@import 'base.css';
+
+body{
+    --color-border:cornsilk;
+}
+
+body nav{
+    flex-basis: 20%;
+    background-color: var(--accent-color);
+    text-align: center;
+    padding: var(--padding-md) 0;
+    display: flex;
+    flex-flow: column;
+    
+}
+
+body nav h1{
+    color:rgba(255, 255, 255, 0.5);
+}
+
+body nav header{
+    flex:0 1 10%;
+    font-weight:700;
+    padding-bottom: var(--padding-md);
+    margin-bottom: var(--margin-md);
+    font-size:xx-large;
+    
+}
+
+body nav ul{
+    flex:0 0 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+body nav li{
+    flex:1 0 33%;
+    border-bottom: 1px solid var(--color-border);
+    list-style:none;
+    margin: 0 var(--padding-sm);
+    transition: all 0.1s ease-in;
+    display: flex;
+    align-items: center;
+}
+
+body nav li:hover{
+    background-color: var(--color-border);
+    color: var(--accent-color); 
+    border-radius: var(--border-radius-md);
+    border:none;
+}
+
+body nav li a {
+    text-decoration: none;
+    width:100%;
+    color:inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: calc(var(--padding-md) + var(--padding-sm)) 0;
+}
+
+body nav li a .svg-wrapper{
+    flex:0 0 40%;
+    padding-right: var(--padding-sm);
+    display:flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+body nav li a .svg-wrapper svg{
+    flex:0 0 40%;
+    color:white;
+    height: 32px;
+}
+
+span{
+    flex-basis:60%;
+    flex-grow:1;
+    text-align: left;
+}

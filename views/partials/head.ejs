@@ -2,7 +2,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>SCU Map Scheduler</title>
     <link rel="stylesheet" href="stylesheets/base.css">
     <link rel="stylesheet" href="stylesheets/nav.css">
     <link rel="stylesheet" href="stylesheets/calender.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script type="module" src="javascripts/map.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%=key%>&callback=initMap"></script>

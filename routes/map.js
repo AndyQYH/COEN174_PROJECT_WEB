@@ -13,7 +13,7 @@ router.use(bodyParser.json())
 router.use(express.static('public'))
 
 router.get('/',(req ,res)=>{
-    res.render('index',{
+    res.render('map',{
         msg:'',
         key:api_key
     })

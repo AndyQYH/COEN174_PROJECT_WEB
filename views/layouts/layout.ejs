@@ -7,7 +7,13 @@
 </head>
 <body>
     <%- include('../partials/nav') %>
-    <%- body %>
+    <main class="main section">
+        <header class = "main header">
+            <%- include('../partials/header') %>
+        </header>
+        <%- body %>
+    </main>
+    
     <footer class = "main footer">
         <%- include('../partials/footer') %>
     </footer>

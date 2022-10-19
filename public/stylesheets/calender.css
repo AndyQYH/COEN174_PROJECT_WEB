@@ -79,7 +79,7 @@ table tbody tr td:first-child, table tbody tr td:last-child{
     flex-flow: column;
     justify-content: center;
     flex:0 1 150px;
-    margin-top: calc(var(--padding-lg) * 2);
+    margin-top: calc(var(--padding-md));
     padding: 0 calc(var(--padding-md) + var(--padding-sm));
     background-color: rgba(147, 160, 170, 0.2);
     max-height: 30%;
@@ -108,7 +108,7 @@ table tbody tr td:first-child, table tbody tr td:last-child{
     flex-flow: column;
     justify-content: space-between;
     align-items: center;
-    margin-top: calc(var(--padding-lg) * 2);
+    margin-top: calc(var(--padding-md));
     margin-bottom: calc(var(--padding-lg) * 2);
     padding: var(--padding-sm) var(--padding-lg);
 }

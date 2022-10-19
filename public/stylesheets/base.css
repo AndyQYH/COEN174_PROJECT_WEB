@@ -40,3 +40,10 @@ main{
     width: 100%;
     /* The width is the width of the web page */
 }
+.main.section{
+    
+}
+.main header{
+    display:flex;
+    justify-content: flex-end;
+}

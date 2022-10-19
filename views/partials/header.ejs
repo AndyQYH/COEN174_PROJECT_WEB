@@ -1,0 +1,24 @@
+<body>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <div id="g_id_onload"
+        data-client_id="524569409435-hmbta1vbvgdpfmvfq2m8h5a6df6bv7t5.apps.googleusercontent.com"
+        data-auto_select="false"
+        data-auto_prompt="false"
+        data-callback="onSignIn">
+    </div>
+    <div class="g_id_signout">Sign Out</div>
+    <div class="g_id_signin"
+       data-type="standard"
+       data-size="large"
+       data-theme="outline"
+       data-text="sign_in_with"
+       data-shape="rectangular"
+       data-logo_alignment="left">
+    </div>
+    <script type="text/javascript">
+        function onSignIn(response) {
+          // get user profile information
+          console.log("Encoded JWT ID token: " + response.credential)
+        }
+    </script>
+</body>

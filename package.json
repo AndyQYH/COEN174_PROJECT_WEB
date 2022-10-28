@@ -3,9 +3,15 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon client.js"
+    "test": "jest",
+    "dev": "nodemon server.js"
   },
+  "jest": {
+    "testMatch": [
+      "**/test/**.test.**"
+    ]
+  },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AndyQYH/COEN174_PROJECT_WEB.git"
@@ -18,17 +24,26 @@
   },
   "homepage": "https://github.com/AndyQYH/COEN174_PROJECT_WEB#readme",
   "dependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
     "body-parser": "^1.20.1",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.8",
     "express": "^4.18.2",
     "express-ejs-layouts": "^2.5.1",
+    "google-auth-library": "^8.6.0",
+    "jquery": "^3.6.1",
+    "jsdom": "^20.0.1",
     "method-override": "^3.0.0",
-    "package": "^1.0.1"
+    "moment": "^2.29.4",
+    "package": "^1.0.1",
+    "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
     "axios": "^1.1.2",
+    "jest": "^29.2.2",
+    "jest-dom": "^4.0.0",
+    "jwt-decode": "^3.1.2",
     "nodemon": "^2.0.20"
   },
   "description": ""

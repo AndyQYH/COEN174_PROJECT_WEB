@@ -6,7 +6,6 @@
         data-auto_prompt="false"
         data-callback="onSignIn">
     </div>
-    <div class="g_id_signout">Sign Out</div>
     <div class="g_id_signin"
        data-type="standard"
        data-size="large"
@@ -15,10 +14,43 @@
        data-shape="rectangular"
        data-logo_alignment="left">
     </div>
+    <button class="g_id_signout" onclick="onSignout()">Sign Out</button>
     <script type="text/javascript">
+        var email;
+
         function onSignIn(response) {
           // get user profile information
-          console.log("Encoded JWT ID token: " + response.credential)
+            console.log("Encoded JWT ID token: " + response.credential);
+
+            httpRequest = new XMLHttpRequest();
+
+            if (!httpRequest) {
+                alert("Giving up :( Cannot create an XMLHTTP instance");
+                return false;
+            }
+            httpRequest.onreadystatechange = SignInresponse;
+            httpRequest.open("POST", "http://localhost:3000/signIn");
+            httpRequest.setRequestHeader("Content-Type", "application/json");
+            httpRequest.send(JSON.stringify({credential:response.credential}));
+
+          //window.location.reload();
+        }
+
+        function SignInresponse() {
+            if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                if (httpRequest.status === 200) {
+                alert(httpRequest.responseText);
+                } else {
+                alert("There was a problem with the request.");
+                }
+            }
+        }
+
+        function onSignout() {
+            console.log("Signed out");
+            google.accounts.id.disableAutoSelect();
+            window.location.reload();
+
         }
     </script>
 </body>

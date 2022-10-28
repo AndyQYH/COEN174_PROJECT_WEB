@@ -19,4 +19,22 @@ router.get('/',(req ,res)=>{
     })
 })
 
+const {OAuth2Client} = require('google-auth-library');
+const client = new OAuth2Client('524569409435-hmbta1vbvgdpfmvfq2m8h5a6df6bv7t5.apps.googleusercontent.com');
+
+router.post('/signIn',async (req ,res)=>{
+    console.log("data received:")
+    console.log(req.body)
+    const ticket = await client.verifyIdToken({
+        idToken: req.body.credential,
+        audience: '524569409435-hmbta1vbvgdpfmvfq2m8h5a6df6bv7t5.apps.googleusercontent.com',
+    });
+    const payload = ticket.getPayload();
+    const email = payload['email'];
+    console.log("emial:" + email);
+    let data = email
+
+    res.status(200).send(data)
+})
+
 module.exports = router

@@ -39,9 +39,9 @@
         function SignInresponse() {
             if (httpRequest.readyState === XMLHttpRequest.DONE) {
                 if (httpRequest.status === 200) {
-                alert(httpRequest.responseText);
+                    console.log(httpRequest.responseText);
                 } else {
-                alert("There was a problem with the request.");
+                    alert(httpRequest.responseText);
                 }
             }
         }

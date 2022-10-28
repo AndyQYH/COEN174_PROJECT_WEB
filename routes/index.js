@@ -25,16 +25,22 @@ const client = new OAuth2Client('524569409435-hmbta1vbvgdpfmvfq2m8h5a6df6bv7t5.a
 router.post('/signIn',async (req ,res)=>{
     console.log("data received:")
     console.log(req.body)
-    const ticket = await client.verifyIdToken({
-        idToken: req.body.credential,
-        audience: '524569409435-hmbta1vbvgdpfmvfq2m8h5a6df6bv7t5.apps.googleusercontent.com',
-    });
-    const payload = ticket.getPayload();
-    const email = payload['email'];
-    console.log("emial:" + email);
-    let data = email
+    try{
+        const ticket = await client.verifyIdToken({
+            idToken: req.body.credential,
+            audience: '524569409435-hmbta1vbvgdpfmvfq2m8h5a6df6bv7t5.apps.googleusercontent.com',
+        });
+        const payload = ticket.getPayload();
+        const email = payload['email'];
+        console.log("emial:" + email);
+        let data = email
 
-    res.status(200).send(data)
+        res.status(200).send(data)
+    }catch (err){
+        console.error(err)
+        res.status(400).send('invalid sign in, please try again')
+    }
+    
 })
 
 module.exports = router

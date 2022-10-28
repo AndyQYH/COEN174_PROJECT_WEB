@@ -11,7 +11,6 @@
       "**/test/**.test.**"
     ]
   },
-  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AndyQYH/COEN174_PROJECT_WEB.git"

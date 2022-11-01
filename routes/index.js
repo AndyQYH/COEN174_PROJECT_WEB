@@ -37,6 +37,32 @@ router.post('/signIn',async (req ,res)=>{
         console.log("email:" + email);
         let data = email
 
+        //
+        let mongoose = require("mongoose");
+        mongoose.Promise = global.Promise;
+        mongoose.connect("mongodb://localhost:27017/node-demo");
+        let nameSchema = new mongoose.Schema({
+            email: String,
+        });
+        let User = mongoose.model("User", nameSchema);
+        app.get("/", (req, res) => {
+            res.sendFile(__dirname + "/index.html");
+        });
+        
+        app.post("/addname", (req, res) => {
+            let myData = new User(req.body);
+            myData.save()
+                .then(item => {
+                    res.send("Name saved to database");
+                })
+                .catch(err => {
+                    res.status(400).send("Unable to save to database");
+                });
+        });
+
+        //
+
+
         res.status(200).send(data)
     }catch (err){
         console.error(err)
@@ -46,3 +72,14 @@ router.post('/signIn',async (req ,res)=>{
 })
 
 module.exports = router
+
+let app = express();
+let port = 3000;
+ 
+app.get("/", (req, res) => {
+ res.send("Hello World");
+});
+ 
+app.listen(port, () => {
+ console.log("Server listening on port " + port);
+});

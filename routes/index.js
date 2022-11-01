@@ -2,6 +2,7 @@ let express = require('express')
 let bodyParser = require('body-parser')
 let cookieParser = require('cookie-parser')
 let dotenv = require('dotenv')
+const User = require('../models/User')
 
 dotenv.config()
 
@@ -14,10 +15,11 @@ router.use(express.static('public'))
 
 router.get('/',(req ,res)=>{
     res.render('index',{
-        msg:'',
+        msg:'index',
         key:api_key
     })
 })
+
 
 const {OAuth2Client} = require('google-auth-library');
 const client = new OAuth2Client('524569409435-hmbta1vbvgdpfmvfq2m8h5a6df6bv7t5.apps.googleusercontent.com');
@@ -32,7 +34,7 @@ router.post('/signIn',async (req ,res)=>{
         });
         const payload = ticket.getPayload();
         const email = payload['email'];
-        console.log("emial:" + email);
+        console.log("email:" + email);
         let data = email
 
         res.status(200).send(data)

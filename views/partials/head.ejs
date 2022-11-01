@@ -5,13 +5,18 @@
     <title>SCU Map Scheduler</title>
     <link rel="stylesheet" href="stylesheets/base.css">
     <link rel="stylesheet" href="stylesheets/nav.css">
-    <link rel="stylesheet" href="stylesheets/calender.css">
+    <link rel="stylesheet" href="stylesheets/calendar.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src = "javascripts/date-fns.js"></script>
+    <%if(msg){%>
+        <%if(msg == 'index'){%>
+            <script defer src = "javascripts/calendar.js"></script>
+        <%}%>
+    <%}%>
     <script type="module" src="javascripts/map.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%=key%>&callback=initMap"></script>
-    <script type="module" src="javascripts/google.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity=
         "sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
         crossorigin="anonymous">
     </script>
+    

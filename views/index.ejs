@@ -6,84 +6,14 @@
                 name="month"
                 type="radio"
                 value="9"
-                checked
+                data-month = "8"
+                
               />September</label
             >
-            <label> <input name="month" type="radio" value="10" />October</label>
-            <label> <input name="month" type="radio" value="11" />November</label>
-            <label> <input name="month" type="radio" value="12" />December</label>
+            <label> <input name="month" type="radio" value="10" data-month = "9" />October</label>
+            <label> <input name="month" type="radio" value="11" data-month = "10"/>November</label>
+            <label> <input name="month" type="radio" value="12" data-month = "11"/>December</label>
           </section>
-          <section class="calendar">
-            <table class="calendar-wrapper">
-              <caption>
-                Class Calendar
-              </caption>
-              <thead>
-                <th>SUN</th>
-                <th>MON</th>
-                <th>TUE</th>
-                <th>WED</th>
-                <th>THU</th>
-                <th>FRI</th>
-                <th>SAT</th>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>2</td>
-                  <td>3</td>
-                  <td>4</td>
-                  <td>5</td>
-                  <td>6</td>
-                  <td>7</td>
-                </tr>
-                <tr>
-                  <td>8</td>
-                  <td>9</td>
-                  <td>10</td>
-                  <td>11</td>
-                  <td>12</td>
-                  <td>13</td>
-                  <td>14</td>
-                </tr>
-                <tr>
-                  <td>15</td>
-                  <td>16</td>
-                  <td>17</td>
-                  <td>18</td>
-                  <td>19</td>
-                  <td>20</td>
-                  <td><span class="office-hours">21</span></td>
-                </tr>
-                <tr>
-                  <td>22</td>
-                  <td>23</td>
-                  <td><span class="office-hours">24</span></td>
-                  <td>25</td>
-                  <td>26</td>
-                  <td>27</td>
-                  <td>28</td>
-                </tr>
-                <tr>
-                  <td>29</td>
-                  <td><span class="lab">30</span></td>
-                  <td>31</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </table>
-            <section class="legend">
-              <h2>Legend</h2>
-              <ul>
-                <li><span class="quiz">1</span> Quiz</li>
-                <li><span class="lab">10</span> Lab</li>
-                <li><span class="homework">11</span> Homework</li>
-                <li><span class="office-hours">20</span> Office Hours</li>
-              </ul>
-            </section>
-          </section>
+          <%-include('partials/calendar')%>
         </section>
       </main>

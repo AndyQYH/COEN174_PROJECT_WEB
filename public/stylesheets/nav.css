@@ -11,7 +11,8 @@ body nav{
     padding: var(--padding-md) 0;
     display: flex;
     flex-flow: column;
-    
+    min-width:250px;
+    max-width:300px;
 }
 
 body nav h1{

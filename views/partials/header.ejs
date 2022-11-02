@@ -1,69 +1,25 @@
 <body>
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <div id="g_id_onload"
-        data-client_id="524569409435-hmbta1vbvgdpfmvfq2m8h5a6df6bv7t5.apps.googleusercontent.com"
-        data-auto_select="false"
-        data-auto_prompt="false"
-        data-callback="onSignIn">
-    </div>
-    <div class="g_id_signin"
-       data-type="standard"
-       data-size="large"
-       data-theme="outline"
-       data-text="sign_in_with"
-       data-shape="rectangular"
-       data-logo_alignment="left">
-    </div>
-    
-
-    <div class="card" style="margin-top:50px;">
+    <div class="user-card" style="margin-top:50px;">
         <div class="card-content">
-            <div class="section" style="text-align: center;">
-                <a href="/auth/google" class="btn">
-                    <i class="fab fa-google left"></i> Log In With Google
-                </a>
-                <button class="g_id_signout" onclick="onSignout()">Sign Out</button>
-            </div>
+            <%if(userinfo == ''){%>
+                <div class="section" style="text-align: center;">
+                    <a href="/auth/google" class="btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 640 640"><path d="M326.331 274.255v109.761h181.49c-7.37 47.115-54.886 138.002-181.49 138.002-109.242 0-198.369-90.485-198.369-202.006 0-111.509 89.127-201.995 198.369-201.995 62.127 0 103.761 26.516 127.525 49.359l86.883-83.635C484.99 31.512 412.741-.012 326.378-.012 149.494-.012 6.366 143.116 6.366 320c0 176.884 143.128 320.012 320.012 320.012 184.644 0 307.256-129.876 307.256-312.653 0-21-2.244-36.993-5.008-52.997l-302.248-.13-.047.024z"></path></svg>
+                        <span>Log In With Google</span> 
+                    </a>
+                </div>
+            <%}else{%>
+                <div class="section" style="text-align: center;">
+                    <a class="navbar-brand btn btn-danger btn-small" href="/auth/logout">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 640 640"><path d="M326.331 274.255v109.761h181.49c-7.37 47.115-54.886 138.002-181.49 138.002-109.242 0-198.369-90.485-198.369-202.006 0-111.509 89.127-201.995 198.369-201.995 62.127 0 103.761 26.516 127.525 49.359l86.883-83.635C484.99 31.512 412.741-.012 326.378-.012 149.494-.012 6.366 143.116 6.366 320c0 176.884 143.128 320.012 320.012 320.012 184.644 0 307.256-129.876 307.256-312.653 0-21-2.244-36.993-5.008-52.997l-302.248-.13-.047.024z"></path></svg>
+                        <span>Logout</span>
+                        
+                    </a>
+                </div>
+            <%}%>
         </div>
     </div>
-
-
     <script type="text/javascript">
-        var email;
-
-        function onSignIn(response) {
-          // get user profile information
-            console.log("Encoded JWT ID token: " + response.credential);
-
-            httpRequest = new XMLHttpRequest();
-
-            if (!httpRequest) {
-                alert("Giving up :( Cannot create an XMLHTTP instance");
-                return false;
-            }
-            httpRequest.onreadystatechange = SignInresponse;
-            httpRequest.open("POST", "http://localhost:3000/signIn");
-            httpRequest.setRequestHeader("Content-Type", "application/json");
-            httpRequest.send(JSON.stringify({credential:response.credential}));
-
-          //window.location.reload();
-        }
-
-        function SignInresponse() {
-            if (httpRequest.readyState === XMLHttpRequest.DONE) {
-                if (httpRequest.status === 200) {
-                    console.log(httpRequest.responseText);
-                } else {
-                    alert(httpRequest.responseText);
-                }
-            }
-        }
-
-        function onSignout() {
-            console.log("Signed out");
-            google.accounts.id.disableAutoSelect();
-            window.location.reload();
-
-        }
+        
     </script>
 </body>

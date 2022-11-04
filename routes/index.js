@@ -32,10 +32,9 @@ router.get("/user",ensureAuth, async(req,res)=>{
     })
 })
 
+const puppeteer = require('puppeteer')
 router.post('/getData',async (req ,res)=>{
   console.log(req.body)
-
-  const puppeteer = require('puppeteer')
   const loggedCheck = async (page) => {
       try {
           await page.waitForSelector('#pt_envinfo', { timeout: 10 });
@@ -47,7 +46,8 @@ router.post('/getData',async (req ,res)=>{
 
 
   const browser = await puppeteer.launch();
-  const page = await browser.newPage();
+  const context = await browser.createIncognitoBrowserContext();
+  const page = await context.newPage();
 
   let isLogged = false;
 

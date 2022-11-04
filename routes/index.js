@@ -4,7 +4,7 @@ let cookieParser = require('cookie-parser')
 let dotenv = require('dotenv')
 const User = require('../models/User')
 const { ensureAuth, ensureGuest } = require('../middleware/auth')
-const webpageLogin = "https://ecampus.scu.edu/psp/csprd92/?cmd=login";
+const webpageLogin = "https://ecampus.scu.edu";
 const webpage = "https://ecampus.scu.edu/psc/csprd92/EMPLOYEE/SA/c/SA_LEARNER_SERVICES.SSR_SSENRL_SCHD_W.GBL"
 dotenv.config()
 
@@ -55,7 +55,9 @@ router.post('/getData',async (req ,res)=>{
       console.log(`Try to log in.`);
       await page.goto(webpageLogin);
       //console.log(await page.content())
+      await page.waitForSelector('#userid');
       await page.type('#userid', req.body.username);
+      await page.waitForSelector('#pwd');
       await page.type('#pwd', req.body.password);
       await page.waitForSelector('input[name=Submit]');
       await page.click('input[name=Submit]');

@@ -70,8 +70,42 @@ router.post('/getData',async (req ,res)=>{
   }
 
   await page.goto(webpage)
-
-  console.log(await page.content())
+  // Grab keywords
+  const html = await page.content() // string of html page
+  const dates = ['Monday','Tuesday','Wednesday','Thursday','Friday']
+  const htmlKeyword = '<br>'
+  let htmlPosition = 0
+  let courseInfoCache = []
+  endIdx = html.indexOf(htmlKeyword, htmlPosition);
+  while (true) {
+    // Next steps: 
+    // 1. Delete redundant info
+    if (endIdx != -1) {
+        startIdx = html.lastIndexOf('>', endIdx) + 1; // grab the previous phrase in front of <br>\
+        
+        courseInfo = html.substring(startIdx, endIdx);
+        if (!dates.includes(courseInfo)) {
+            courseInfoCache.push(courseInfo)
+        }
+        if (courseInfo.lastIndexOf(':') === 10) { // if courseInfo is time, append the location
+            //console.log(courseInfo.lastIndexOf(':'))
+            locStart = endIdx + 4; // start with the character right after <br>
+            locEnd = html.indexOf('<', locStart);
+            courseLocation = html.substring(locStart, locEnd);
+            courseInfoCache.push(courseLocation)
+            courseInfoCache.push("---------------------")
+        }
+        htmlPosition = endIdx + 1;
+        endIdx = html.indexOf(htmlKeyword, htmlPosition);
+    }
+    else {
+        break
+    }
+  }
+  console.log("Success")
+  //console.log(html)
+  console.log(courseInfoCache)
+  
 
   await browser.close();
 

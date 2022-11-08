@@ -48,6 +48,10 @@ canvas{
     height:100%;
 }
 
+span{
+    color:black;
+}
+
 
 .chart-wrapper{
     background-color:rgb(250,250,250);

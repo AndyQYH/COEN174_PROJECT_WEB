@@ -5,9 +5,10 @@ let dotenv = require('dotenv')
 const User = require('../models/User')
 const { ensureAuth, ensureGuest } = require('../middleware/auth')
 const webpageLogin = "https://ecampus.scu.edu";
-const webpage = "https://ecampus.scu.edu/psc/csprd92/EMPLOYEE/SA/c/SA_LEARNER_SERVICES.SSR_SSENRL_SCHD_W.GBL"
+const puppeteer = require('puppeteer')
 dotenv.config()
 
+const webpage = process.env.WEBPAGE
 const api_key = process.env.GOOGLE_KEY
 console.log(api_key)
 const router = express.Router()
@@ -24,10 +25,11 @@ router.get('/', ensureGuest,(req ,res)=>{
     })
 })
 
-router.get("/user",ensureAuth, async(req,res)=>{
+router.get("/user",ensureAuth, (req,res)=>{
+    console.log(req.user.email)
     res.render('index',{
         msg:"user",
-        userinfo:req.user,
+        userinfo:req.user.email,
         key:api_key
     })
 })
@@ -36,7 +38,8 @@ const puppeteer = require('puppeteer')
 const mongoose = require('mongoose')
 const UserCourse = require('../models/User')
 
-router.post('/getData',async (req ,res)=>{
+
+router.post('user/getData',async (req ,res)=>{
   console.log(req.body)
   const loggedCheck = async (page) => {
       try {

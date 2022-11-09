@@ -33,6 +33,9 @@ router.get("/user",ensureAuth, async(req,res)=>{
 })
 
 const puppeteer = require('puppeteer')
+const mongoose = require('mongoose')
+const UserCourse = require('../models/User')
+
 router.post('/getData',async (req ,res)=>{
   console.log(req.body)
   const loggedCheck = async (page) => {

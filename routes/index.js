@@ -6,6 +6,8 @@ const User = require('../models/User')
 const { ensureAuth, ensureGuest } = require('../middleware/auth')
 const webpageLogin = "https://ecampus.scu.edu";
 const puppeteer = require('puppeteer')
+const mongoose = require('mongoose')
+const UserCourse = require('../models/UserCourse')
 dotenv.config()
 
 const webpage = process.env.WEBPAGE
@@ -33,6 +35,13 @@ router.get("/user",ensureAuth, async(req,res)=>{
         userImg = user.image
     }
     
+
+    let userCourse = await UserCourse.find({email: req.user.email})
+
+    if (userCourse) {
+        console.log(userCourse)
+    }
+
     res.render('index',{
         msg:"user",
         userinfo:req.user.email,
@@ -41,12 +50,13 @@ router.get("/user",ensureAuth, async(req,res)=>{
     })
 })
 
-const mongoose = require('mongoose')
-const UserCourse = require('../models/User')
 
 
-router.post('user/getData',async (req ,res)=>{
+
+router.post('/user/getData', ensureAuth,async (req ,res)=>{
+  console.log(req.user)
   console.log(req.body)
+  var email=req.user.email
   const loggedCheck = async (page) => {
       try {
           await page.waitForSelector('#pt_envinfo', { timeout: 10 });
@@ -78,7 +88,11 @@ router.post('user/getData',async (req ,res)=>{
   }
 
   if (!isLogged) {
-      throw new Error('Incorrect username or password.')
+    console.log("Incorrect username or password")
+    res.statusCode=400
+    await browser.close();
+    res.redirect('/')
+    return;
   }
   await page.goto(webpage)
   // Grab keywords
@@ -153,9 +167,30 @@ router.post('user/getData',async (req ,res)=>{
   console.log(courseInfoCache)
   // Remove all repeated courses
   for (let i = 0; i < courseInfoCache.length; i+=5) {
+    let course = {
+        email: email,
+        courseName: courseInfoCache[i],
+        courseType: courseInfoCache[i+1],
+        day: 'MWF',
+        time: courseInfoCache[i+2],
+        location: courseInfoCache[i+3]
+      }
     
+      try {
+        //find the course in our database 
+        let userCourse = await UserCourse.findOne({ email: email,courseName:courseInfoCache[i] })
+    
+        if (!userCourse) {
+          // if course is not preset in our database save user data to database.
+          userCourse = await UserCourse.create(course)
+        }
+      } catch (err) {
+        console.error(err)
+      }
   }
 
   await browser.close();
+  res.redirect('/')
+  return;
 })
 module.exports = router

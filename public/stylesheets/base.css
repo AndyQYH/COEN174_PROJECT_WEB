@@ -29,7 +29,7 @@ body{
     overflow:hidden;
     display:flex;
     flex-wrap: wrap;
-    color:white;
+    color:black;
     flex-wrap:nowrap;
 
     accent-color: var(--accent-color);

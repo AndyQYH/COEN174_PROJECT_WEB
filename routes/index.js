@@ -41,7 +41,6 @@ router.get("/user",ensureAuth, async(req,res)=>{
     })
 })
 
-const puppeteer = require('puppeteer')
 const mongoose = require('mongoose')
 const UserCourse = require('../models/User')
 

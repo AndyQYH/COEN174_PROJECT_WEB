@@ -25,9 +25,17 @@ router.get('/', ensureGuest,(req ,res)=>{
 })
 
 router.get("/user",ensureAuth, async(req,res)=>{
+    //console.log(req.user)
+    let userImg = ''
+    let user = await User.findOne({ email: req.user.email})
+    if(user){
+        userImg = user.image
+    }
+    
     res.render('index',{
         msg:"user",
-        userinfo:req.user,
+        userinfo:req.user.email,
+        userImg: userImg,
         key:api_key
     })
 })
@@ -66,12 +74,10 @@ router.post('/getData',async (req ,res)=>{
   if (!isLogged) {
       throw new Error('Incorrect username or password.')
   }
-
   await page.goto(webpage)
 
   console.log(await page.content())
 
   await browser.close();
-
 })
 module.exports = router

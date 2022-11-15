@@ -15,7 +15,8 @@ router.use(express.static('public'))
 router.get('/',(req ,res)=>{
     res.render('map',{
         msg:'',
-        key:api_key
+        key:api_key,
+        userinfo:''
     })
 })
 

@@ -13,6 +13,7 @@ body nav{
     flex-flow: column;
     min-width:250px;
     max-width:300px;
+    color:cornsilk;
 }
 
 body nav h1{
@@ -50,6 +51,12 @@ body nav li:hover{
     color: var(--accent-color); 
     border-radius: var(--border-radius-md);
     border:none;
+}
+
+body nav li:hover svg{
+    stroke: var(--accent-color);
+    fill: var(--color-border);
+    
 }
 
 body nav li a {

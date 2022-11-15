@@ -238,7 +238,7 @@ function updateCalendar(date = new Date()){
 }
 
 function initializeButtons(selected = new Date().getMonth()){
-    let inputs = document.querySelectorAll('input');
+    let inputs = document.querySelectorAll('input[name = "month"]');
     inputs.forEach((input) =>{
         const month = input.dataset.month
         input.addEventListener('click', function(){

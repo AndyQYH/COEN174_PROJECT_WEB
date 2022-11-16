@@ -7,6 +7,8 @@ const { ensureAuth, ensureGuest } = require('../middleware/auth')
 const webpageLogin = "https://ecampus.scu.edu";
 const puppeteer = require('puppeteer')
 const UserCourse = require('../models/UserCourse')
+const registrationSchema = require('../models/ECampus')
+const {body, checkSchema, validationResult} = require('express-validator');
 dotenv.config()
 
 const webpage = process.env.WEBPAGE
@@ -55,8 +57,19 @@ router.get("/user",ensureAuth, async(req,res)=>{
 
 
 
-router.post('/user/getData', ensureAuth,async (req ,res)=>{
+router.post('/user/getData', ensureAuth,checkSchema(registrationSchema),async (req ,res)=>{
   console.log(req.user)
+
+  const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        return res.status(400).json({
+            errors: errors.array()
+        });
+    }
+
+    
+
   console.log(req.body)
   var email=req.user.email
   const loggedCheck = async (page) => {
@@ -192,7 +205,10 @@ router.post('/user/getData', ensureAuth,async (req ,res)=>{
   }
 
   await browser.close();
-  res.redirect('/')
-  return;
+  
+  res.status(200).json({
+    success: true,
+    message: 'Registration successful',
+    })
 })
 module.exports = router

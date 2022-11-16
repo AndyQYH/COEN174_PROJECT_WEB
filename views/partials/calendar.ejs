@@ -59,17 +59,19 @@
         <td></td>
         <td></td>
       </tr>
-      <%if(Object.keys(userCourse) > 0){%>
-        <%for(const schedule of userCourse){%>
-          <tr>
-            <td>
-              <%=schedule.courseName%>
-            </td>
-          </tr>
-        <%}%>
-      <%}%>
     </tbody>
   </table>
+  <section>
+    <%if(userCourse.length > 0){%>
+      <%userCourse.forEach((schedule)=>{%>
+        <div>
+          <span>
+            <%=schedule.courseName%>
+          </span>
+        </div>
+      <%})%>
+    <%}%>
+      </sectiob>
   <section class="legend">
     <h2>Legend</h2>
     <ul>

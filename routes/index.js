@@ -8,6 +8,7 @@ const webpageLogin = "https://ecampus.scu.edu";
 const puppeteer = require('puppeteer')
 const mongoose = require('mongoose')
 const UserCourse = require('../models/UserCourse')
+const CourseInformation = require('../models/CourseInformation')
 dotenv.config()
 
 const webpage = process.env.WEBPAGE
@@ -170,14 +171,28 @@ router.post('/user/getData', ensureAuth,async (req ,res)=>{
   console.log(courseInfoCache)
   // Remove all repeated courses
   for (let i = 0; i < courseInfoCache.length; i+=5) {
-    let course = {
-        email: email,
-        courseName: courseInfoCache[i],
-        courseType: courseInfoCache[i+1],
-        day: 'MWF',
-        time: courseInfoCache[i+2],
-        location: courseInfoCache[i+3]
-      }
+    let courseInformation = await CourseInformation.findOne({courseName:courseInfoCache[i]})
+    let course
+    if(courseInformation){
+        course = {
+            email: email,
+            courseName: courseInfoCache[i],
+            courseType: courseInfoCache[i+1],
+            day: courseInformation.day,
+            time: courseInfoCache[i+2],
+            location: courseInfoCache[i+3]
+          }
+    }else{
+        course = {
+            email: email,
+            courseName: courseInfoCache[i],
+            courseType: courseInfoCache[i+1],
+            day: "MWF",
+            time: courseInfoCache[i+2],
+            location: courseInfoCache[i+3]
+          }
+    }
+    
     
       try {
         //find the course in our database 

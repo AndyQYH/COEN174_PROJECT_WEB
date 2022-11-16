@@ -6,7 +6,6 @@ const User = require('../models/User')
 const { ensureAuth, ensureGuest } = require('../middleware/auth')
 const webpageLogin = "https://ecampus.scu.edu";
 const puppeteer = require('puppeteer')
-const mongoose = require('mongoose')
 const UserCourse = require('../models/UserCourse')
 dotenv.config()
 

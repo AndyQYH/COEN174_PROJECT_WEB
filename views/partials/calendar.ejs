@@ -59,6 +59,15 @@
         <td></td>
         <td></td>
       </tr>
+      <%if(Object.keys(userCourse) > 0){%>
+        <%for(const schedule of userCourse){%>
+          <tr>
+            <td>
+              <%=schedule.courseName%>
+            </td>
+          </tr>
+        <%}%>
+      <%}%>
     </tbody>
   </table>
   <section class="legend">

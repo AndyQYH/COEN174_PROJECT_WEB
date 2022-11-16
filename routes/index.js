@@ -23,9 +23,11 @@ router.get('/', ensureGuest,(req ,res)=>{
     res.render('index',{
         msg:'index',
         userinfo:'',
-        key:api_key
+        key:api_key,
+        userCourse:[]
     })
 })
+
 
 router.get("/user",ensureAuth, async(req,res)=>{
     //console.log(req.user)
@@ -46,7 +48,8 @@ router.get("/user",ensureAuth, async(req,res)=>{
         msg:"user",
         userinfo:req.user.email,
         userImg: userImg,
-        key:api_key
+        key:api_key,
+        userCourse:userCourse
     })
 })
 

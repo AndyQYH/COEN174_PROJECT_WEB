@@ -1,4 +1,3 @@
-
 <section class="calendar">
   <table class="calendar-wrapper">
     <caption>
@@ -59,17 +58,43 @@
         <td></td>
         <td></td>
       </tr>
-      <%if(Object.keys(userCourse) > 0){%>
-        <%for(const schedule of userCourse){%>
-          <tr>
-            <td>
-              <%=schedule.courseName%>
-            </td>
-          </tr>
-        <%}%>
-      <%}%>
     </tbody>
   </table>
+
+  <%
+  attachCourse = function(day) {
+    if(userCourse.length > 0){
+      userCourse.forEach((schedule) => {
+        if (schedule.day.includes(day)) {%>
+          <div>
+            <span>
+              <%=schedule.courseName%>
+            </span>
+          </div>
+        <%}
+        }
+      )
+    }
+  }
+  %>
+  <section class="schedule">
+    <section class="Monday classes">
+      <%attachCourse('M')%>
+    </section>
+    <section class="Tuesday classes">
+      <%attachCourse('T')%>
+    </section>
+    <section class="Wednesday classes">
+      <%attachCourse('W')%>
+    </section>
+    <section class="Thursday classes">
+      <%attachCourse('R')%>
+    </section>
+    <section class="Friday classes">
+      <%attachCourse('F')%>
+    </section>
+  </section>
+  
   <section class="legend">
     <h2>Legend</h2>
     <ul>

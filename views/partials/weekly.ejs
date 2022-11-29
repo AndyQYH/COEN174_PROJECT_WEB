@@ -1,0 +1,43 @@
+<%
+  attachCourse = function(day) {
+    
+  }
+%>
+
+<section class="schedule">
+    <table class="schedule-wrapper">
+        <caption>
+            Weekly schedule
+        </caption>
+        <thead>
+            <th id = "Sun">SUN</th>
+            <th id = "Mon">MON</th>
+            <th id = "Tue">TUE</th>
+            <th id = "Wed">WED</th>
+            <th id = "Thu">THU</th>
+            <th id = "Fri">FRI</th>
+            <th id = "Sat">SAT</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td>
+                    <%attachCourse('M')%>
+                </td>
+                <td>
+                    <%attachCourse('T')%>
+                </td>
+                <td>
+                    <%attachCourse('W')%>
+                </td>
+                <td>
+                    <%attachCourse('R')%>
+                </td>
+                <td>
+                    <%attachCourse('F')%>
+                </td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</section>

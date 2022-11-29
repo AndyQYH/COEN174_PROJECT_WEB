@@ -38,6 +38,7 @@
     "method-override": "^3.0.0",
     "moment": "^2.29.4",
     "mongoose": "^6.7.0",
+    "mongosm": "^0.0.5",
     "package": "^1.0.1",
     "passport": "^0.6.0",
     "passport-google-oauth20": "^2.0.0",

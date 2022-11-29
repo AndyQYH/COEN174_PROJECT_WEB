@@ -52,9 +52,6 @@ router.get("/user",ensureAuth, async(req,res)=>{
     })
 })
 
-
-
-
 router.post('/user/getData', ensureAuth,async (req ,res)=>{
   console.log(req.user)
   console.log(req.body)

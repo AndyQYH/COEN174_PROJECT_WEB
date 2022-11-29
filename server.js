@@ -7,7 +7,7 @@ let passport = require('passport')
 const session = require('express-session')
 const {setup} = require('./config/passport')
 passport = setup(passport)
-let mapRouter = require('./routes/map')
+
 let indexRouter = require('./routes/index')
 let userRouter = require('./routes/users')
 let authRouter = require('./routes/auth')
@@ -53,8 +53,7 @@ db.on('error', error => console.error(error))
 db.once('open', () => console.log('Connected to Mongoose'))
 
 app.use('/',indexRouter)
-app.use('/log-in',userRouter)
-app.use('/map', mapRouter)
+app.use('/user',userRouter)
 app.use('/auth',authRouter)
 
 

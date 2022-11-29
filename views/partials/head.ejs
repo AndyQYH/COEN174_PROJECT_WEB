@@ -5,14 +5,16 @@
     <title>SCU Map Scheduler</title>
     <link rel="stylesheet" href="stylesheets/base.css">
     <link rel="stylesheet" href="stylesheets/nav.css">
-    <link rel="stylesheet" href="stylesheets/calendar.css">
+    
+    <link rel="stylesheet" href="stylesheets/profile.css">
     
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script src = "javascripts/date-fns.js"></script>
-    <%if(msg){%>
-        <%if(msg == 'user'){%>
+    <%if(userinfo){%>
+        <%if(userinfo != ''){%>
             <script defer src = "javascripts/calendar.js"></script>
             <link rel="stylesheet" href="stylesheets/user.css">
+            <link rel="stylesheet" href="stylesheets/calendar.css">
         <%}%>
     <%}%>
     <script type="module" src="javascripts/map.js"></script>

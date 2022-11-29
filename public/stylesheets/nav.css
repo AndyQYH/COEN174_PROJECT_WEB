@@ -55,8 +55,8 @@ body nav li:hover{
 
 body nav li:hover svg{
     stroke: var(--accent-color);
+    color: var(--accent-color);
     fill: var(--color-border);
-    
 }
 
 body nav li a {
@@ -75,11 +75,11 @@ body nav li a .svg-wrapper{
     display:flex;
     justify-content: flex-end;
     align-items: center;
+    color:white;
 }
 
 body nav li a .svg-wrapper svg{
     flex:0 0 40%;
-    color:white;
     height: 32px;
 }
 

@@ -2,21 +2,25 @@ let express = require('express')
 let bodyParser = require('body-parser')
 let cookieParser = require('cookie-parser')
 let dotenv = require('dotenv')
+const { ensureAuth, ensureGuest } = require('../middleware/auth')
 
 dotenv.config()
 
 const api_key = process.env.GOOGLE_KEY
 console.log(api_key)
-const router = express.Router()
+const router = express.Router({mergeParams: true})
 router.use(cookieParser())
 router.use(bodyParser.json())
 router.use(express.static('public'))
 
-router.get('/',(req ,res)=>{
+router.get('/', ensureAuth, (req ,res)=>{
     res.render('map',{
-        msg:'',
-        key:api_key,
-        userinfo:''
+        msg:"user",
+        userinfo: req.user.email,
+        userId: req.user.googleId,
+        userImg: req.userImg,
+        key: api_key,
+        userCourse:userCourse
     })
 })
 

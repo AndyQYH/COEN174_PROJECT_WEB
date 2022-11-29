@@ -1,9 +1,17 @@
 const User = require('../models/User')
 
 const ECampusSchema = {
+    id:{
+        in:['params','body'],
+        errorMessage: "id does not exist or not allowed",
+        isString: true,
+        toString: true
+    },
     username:{
         notEmpty: true,
-        matches: '^W',
+        matches: {
+            options:['/W']
+        },
         errorMessage: "username cannot be empty and should start with W"
     },
     password:{

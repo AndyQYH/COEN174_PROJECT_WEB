@@ -5,16 +5,19 @@ module.exports = {
       if (req.isAuthenticated()) {
         return next()
       } else {
-        res.redirect('/')
+        res.redirect('/auth/google')
       }
     },
     // if user is authenticated and going to login page then redirected to home page if not authenticated redirected to login page  .
     ensureGuest: function (req, res, next) {
       console.log("ensure guest ...")
+      console.log(req.url)
       if (!req.isAuthenticated()) {
-        return next();
+        console.log("not authenticated ...")
+        return next()
       } else {
-        res.redirect('/user');
+        console.log("authenticated ...")
+        res.redirect(`/user/${req.user.GoogleId}`)
       }
     },
   }

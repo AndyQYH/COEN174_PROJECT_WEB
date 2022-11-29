@@ -31,13 +31,14 @@ router.get("/",ensureAuth, async(req,res)=>{
         console.log(userCourse)
     }
 
-    res.render('index',{
+    res.render('schedule',{
         msg:"user",
-        userinfo: user.email,
+        url: req.url,
         userId: user.googleId,
         userImg: userImg,
         key: api_key,
-        userCourse:userCourse
+        userCourse:userCourse,
+        userName: req.user.firstName + ' ' + req.user.lastName,
     })
 })
 

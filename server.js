@@ -6,6 +6,7 @@ let methodOverride = require('method-override')
 let passport = require('passport')
 const session = require('express-session')
 const {setup} = require('./config/passport')
+const User = require('./models/User')
 passport = setup(passport)
 
 let indexRouter = require('./routes/index')
@@ -48,6 +49,7 @@ mongoose.connect(process.env.DATABASE_URL, {
     useUnifiedTopology: true,
     family: 4 
  })
+
 const db = mongoose.connection
 db.on('error', error => console.error(error))
 db.once('open', () => console.log('Connected to Mongoose'))
@@ -55,7 +57,6 @@ db.once('open', () => console.log('Connected to Mongoose'))
 app.use('/',indexRouter)
 app.use('/user',userRouter)
 app.use('/auth',authRouter)
-
 
 app.listen(PORT, ()=>{
     console.log(`[server]: Server is running at http://localhost:${PORT}`)

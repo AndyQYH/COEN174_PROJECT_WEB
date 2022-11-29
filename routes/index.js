@@ -23,16 +23,15 @@ router.get('/', ensureGuest,(req ,res)=>{
         id = req.user.googleId
         userImg = req.user.image
     }else{
-        id = 'Guest'
+        id = 'guest'
         userImg = ""
     }
 
     res.render('index',{
         msg:'index',
-        userinfo:'',
+        url:req.url,
         key:api_key,
         userName: '',
-        userCourse:[],
         userId: id,
         userImg: userImg
     })

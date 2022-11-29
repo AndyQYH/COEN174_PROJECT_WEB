@@ -16,11 +16,11 @@ router.use(express.static('public'))
 router.get('/', ensureAuth, (req ,res)=>{
     res.render('map',{
         msg:"user",
-        userinfo: req.user.email,
+        url: req.url,
         userId: req.user.googleId,
-        userImg: req.userImg,
+        userImg: req.user.image,
         key: api_key,
-        userCourse:userCourse
+        userName: req.user.firstName + ' ' + req.user.lastName,
     })
 })
 

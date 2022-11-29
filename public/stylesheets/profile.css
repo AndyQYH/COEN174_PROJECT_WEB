@@ -6,7 +6,7 @@ body {
 }
 
 .header {
-  min-height: 60vh;
+  min-height: 50vh;
   background: #009FFF;
   background: linear-gradient(to right, #a7cae8, #779cb3);
   color: white;

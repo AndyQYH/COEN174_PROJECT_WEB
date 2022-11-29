@@ -2,11 +2,21 @@
 // prompted by your browser. If you see the error "The Geolocation service
 // failed.", it means you probably did not give permission for the browser to
 // locate you.
-let map, infoWindow;
 const SCU = { lat: 37.3496, lng: -121.9390 }
 
+  
+/**
+ * @license
+ * Copyright 2019 Google LLC. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
+// This example requires the Places library. Include the libraries=places
+// parameter when you first load the API. For example:
+// <script
+// src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 function initMap() {
-  map = new google.maps.Map(document.getElementById("map"), {
+  const map = new google.maps.Map(document.getElementById("map"), {
+    mapTypeControl: false,
     center: SCU,
     zoom: 15,
   });
@@ -16,47 +26,112 @@ function initMap() {
     position: SCU,
     map: map,
   });
-  infoWindow = new google.maps.InfoWindow();
 
-  const locationButton = document.createElement("button");
-
-  locationButton.textContent = "Pan to Current Location";
-  locationButton.classList.add("custom-map-control-button");
-  map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
-  locationButton.addEventListener("click", () => {
-    // Try HTML5 geolocation.
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
-
-          infoWindow.setPosition(pos);
-          infoWindow.setContent("Location found.");
-          infoWindow.open(map);
-          map.setCenter(pos);
-        },
-        () => {
-          handleLocationError(true, infoWindow, map.getCenter());
-        }
-      );
-    } else {
-      // Browser doesn't support Geolocation
-      handleLocationError(false, infoWindow, map.getCenter());
-    }
-  });
+  new AutocompleteDirectionsHandler(map);
 }
 
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-  infoWindow.setPosition(pos);
-  infoWindow.setContent(
-    browserHasGeolocation
-      ? "Error: The Geolocation service failed."
-      : "Error: Your browser doesn't support geolocation."
-  );
-  infoWindow.open(map);
+class AutocompleteDirectionsHandler {
+  map;
+  originPlaceId;
+  destinationPlaceId;
+  travelMode;
+  directionsService;
+  directionsRenderer;
+  constructor(map) {
+    this.map = map;
+    this.originPlaceId = "";
+    this.destinationPlaceId = "";
+    this.travelMode = google.maps.TravelMode.DRIVING;
+    this.directionsService = new google.maps.DirectionsService();
+    this.directionsRenderer = new google.maps.DirectionsRenderer();
+    this.directionsRenderer.setMap(map);
+
+    const originInput = document.getElementById("origin-input");
+    const destinationInput = document.getElementById("destination-input");
+    const modeSelector = document.getElementById("mode-selector");
+    // Specify just the place data fields that you need.
+    const originAutocomplete = new google.maps.places.Autocomplete(
+      originInput,
+      { fields: ["place_id"] }
+    );
+    // Specify just the place data fields that you need.
+    const destinationAutocomplete = new google.maps.places.Autocomplete(
+      destinationInput,
+      { fields: ["place_id"] }
+    );
+
+    this.setupClickListener(
+      "changemode-walking",
+      google.maps.TravelMode.WALKING
+    );
+    this.setupClickListener(
+      "changemode-transit",
+      google.maps.TravelMode.TRANSIT
+    );
+    this.setupClickListener(
+      "changemode-driving",
+      google.maps.TravelMode.DRIVING
+    );
+    this.setupPlaceChangedListener(originAutocomplete, "ORIG");
+    this.setupPlaceChangedListener(destinationAutocomplete, "DEST");
+    this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(originInput);
+    this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(
+      destinationInput
+    );
+    this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(modeSelector);
+  }
+  // Sets a listener on a radio button to change the filter type on Places
+  // Autocomplete.
+  setupClickListener(id, mode) {
+    const radioButton = document.getElementById(id);
+
+    radioButton.addEventListener("click", () => {
+      this.travelMode = mode;
+      this.route();
+    });
+  }
+  setupPlaceChangedListener(autocomplete, mode) {
+    autocomplete.bindTo("bounds", this.map);
+    autocomplete.addListener("place_changed", () => {
+      const place = autocomplete.getPlace();
+
+      if (!place.place_id) {
+        window.alert("Please select an option from the dropdown list.");
+        return;
+      }
+
+      if (mode === "ORIG") {
+        this.originPlaceId = place.place_id;
+      } else {
+        this.destinationPlaceId = place.place_id;
+      }
+
+      this.route();
+    });
+  }
+  route() {
+    if (!this.originPlaceId || !this.destinationPlaceId) {
+      return;
+    }
+
+    const me = this;
+
+    this.directionsService.route(
+      {
+        origin: { placeId: this.originPlaceId },
+        destination: { placeId: this.destinationPlaceId },
+        travelMode: this.travelMode,
+      },
+      (response, status) => {
+        if (status === "OK") {
+          me.directionsRenderer.setDirections(response);
+        } else {
+          window.alert("Directions request failed due to " + status);
+        }
+      }
+    );
+  }
 }
 
 window.initMap = initMap;
+

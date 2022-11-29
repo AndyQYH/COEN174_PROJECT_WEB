@@ -14,6 +14,7 @@ console.log(api_key)
 const router = express.Router()
 router.use(cookieParser())
 router.use(bodyParser.json())
+router.use(bodyParser.urlencoded({extended : true}))
 router.use(express.static('public'))
 router.use("/:id/map", mapRouter)
 router.use("/:id/schedule", scheduleRouter)
@@ -38,11 +39,10 @@ router.get('/:id', ensureAuth, async (req, res)=>{
     res.render('user',{
         msg:"user",
         userName: req.user.firstName + ' ' + req.user.lastName,
-        userinfo: req.user.email,
+        url: req.url,
         userId: req.user.googleId ,
         userImg: userImg,
-        key: api_key,
-        userCourse:[]
+        key: api_key
     })
 })
 

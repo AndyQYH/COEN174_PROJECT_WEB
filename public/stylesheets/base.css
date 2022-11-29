@@ -6,7 +6,7 @@
 
 /* Set the size of the div element that contains the map */
 #map {
-    height: 400px;
+    height: 100%;
     /* The height is 400 pixels */
     width: 100%;
     /* The width is the width of the web page */
@@ -37,9 +37,10 @@ body{
 
 main{
     border-radius:var(--border-radius-md) 0 0 var(--border-radius-md);
-    padding: var(--padding-md) var(--padding-lg);
     flex:1 0 auto;
     overflow:auto;
+    height:100%;
+    overflow: auto;
 }
 
 
@@ -87,10 +88,9 @@ span{
 }
 
 .main.header{
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: flex-end;
-    align-items:flex-end;
+    min-height:fit-content !important;
+    background-color: azure !important;
+    align-items: flex-end;
 }
 
 .chart-wrapper.large{

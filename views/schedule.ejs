@@ -1,5 +1,18 @@
 <main>
-  
+      <%
+      if(userCourse.length > 0){
+            let i=0
+            userCourse.forEach((schedule) => {
+            %>
+            <div style="display:none" id="course<%= i %>">
+                  <%=JSON.stringify(schedule)%>
+            </div>
+            <%
+            i++
+            }
+            )
+      }
+      %>
       <%-include('partials/calendar')%>
-    
+
 </main>

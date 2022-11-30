@@ -6,15 +6,36 @@ body {
 }
 
 .header {
-  min-height: 50vh;
+  min-height: 100vh;
   background: #009FFF;
   background: linear-gradient(to right, #a7cae8, #779cb3);
   color: white;
   clip-path: ellipse(100vw 60vh at 50% 50%);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  position: relative;
 }
+
+.header .btns{
+  position: absolute;
+  left:40%;
+  top:30vh;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.header .btns > *{
+  margin:var(--margin-sm)
+}
+
+.profile{
+  
+  background: #009FFF;
+  background: linear-gradient(to right, #a7cae8, #779cb3);
+}
+
 
 .details {
   text-align: center;

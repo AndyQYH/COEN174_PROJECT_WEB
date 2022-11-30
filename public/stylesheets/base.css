@@ -43,6 +43,10 @@ main{
     overflow: auto;
 }
 
+main section{
+    min-height:100%;
+}
+
 
 canvas{
     width: 100%;
@@ -91,6 +95,8 @@ span{
     min-height:fit-content !important;
     background-color: azure !important;
     align-items: flex-end;
+    padding-bottom:50px;
+    border-bottom: 5px solid var(--accent-color);
 }
 
 .chart-wrapper.large{
@@ -156,7 +162,7 @@ span{
     justify-content: space-around;
     width: max-content;
     height: fit-content;
-    background: #4E9CAF;
+    background: var(--accent-color);
     padding: 10px;
     text-align: center;
     border-radius: 5px;

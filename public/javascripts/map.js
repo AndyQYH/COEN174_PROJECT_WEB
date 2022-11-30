@@ -59,6 +59,11 @@ function initMap() {
 }
 
 function makeInfoWindowEvent(map, infowindow, contentString, marker, SCU, directionsService, directionsRenderer) {
+  google.maps.event.addListener(marker, 'mouseover', function() {
+    infowindow.setContent(contentString);
+    infowindow.open(map, marker);
+  
+  });
   google.maps.event.addListener(marker, 'click', function() {
     infowindow.setContent(contentString);
     infowindow.open(map, marker);

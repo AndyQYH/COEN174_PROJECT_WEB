@@ -33,6 +33,7 @@ body nav ul{
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin:var(--margin-md) 0;
 }
 
 body nav li{

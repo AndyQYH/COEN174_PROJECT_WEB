@@ -43,11 +43,11 @@ function initMap() {
     var building = JSON.parse(buildingInfo.innerText)
     console.log(building)
     const marker = new google.maps.Marker({
-      position: {lat:building['key'][0], lng:building['key'][1]},
+      position: {lat:Object.values(building)[0][0], lng:Object.values(building)[0][1]},
       map: map,
       label: labels[labelIndex++ % labels.length]
     });
-    makeInfoWindowEvent(map, infowindow, "test" + i, marker);
+    makeInfoWindowEvent(map, infowindow,Object.keys(building)[0], marker);
     i++
     buildingInfo = document.getElementById(`building${i}`)
   }

@@ -35,7 +35,7 @@
     <%let i=0%>
       <%for(let key in buildings) {%>
             <div style="display:none" id="building<%= i %>">
-                  <%=JSON.stringify({key:buildings[key]})%>
+                  <%=JSON.stringify({[key]:buildings[key]})%>
             </div>
             
             <%i++%>

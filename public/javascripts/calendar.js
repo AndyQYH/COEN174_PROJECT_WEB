@@ -40,8 +40,10 @@ document.addEventListener('DOMContentLoaded', function() {
     var t2 = parseTime(time[1])
     var startTime = t1.getHours() + ':' + t1.getMinutes();
     var endTime = t2.getHours() + ':' + t2.getMinutes();
+    title = title+`\n${course.location}`
     events.push({
       title: title, // a property!
+      url:`https://www.google.com/maps/dir//${course.location},+Santa+Clara,+CA+95053`,
       daysOfWeek: daysOfWeek,
       startTime:startTime,
       endTime:endTime

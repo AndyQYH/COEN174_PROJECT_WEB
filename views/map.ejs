@@ -32,6 +32,17 @@
     </div>
     <!--The div element for the map -->
     <div id="map"></div>
+    <%let i=0%>
+      <%for(let key in buildings) {%>
+            <div style="display:none" id="building<%= i %>">
+                  <%=JSON.stringify({key:buildings[key]})%>
+            </div>
+            
+            <%i++%>
+            <%}%>
+            
+      
+      
     
     <!-- 
      The `defer` attribute causes the callback to execute after the full HTML
@@ -43,3 +54,4 @@
       src="https://maps.googleapis.com/maps/api/js?key=<%=key%>&callback=initMap&libraries=places&v=weekly"
       defer
     ></script>
+

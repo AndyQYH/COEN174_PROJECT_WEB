@@ -2,9 +2,10 @@
 // prompted by your browser. If you see the error "The Geolocation service
 // failed.", it means you probably did not give permission for the browser to
 // locate you.
+const labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+let labelIndex = 0;
 const SCU = { lat: 37.3496, lng: -121.9390 }
-
-  
+ 
 /**
  * @license
  * Copyright 2019 Google LLC. All Rights Reserved.
@@ -14,8 +15,12 @@ const SCU = { lat: 37.3496, lng: -121.9390 }
 // parameter when you first load the API. For example:
 // <script
 // src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+
 function initMap() {
-  const map = new google.maps.Map(document.getElementById("map"), {
+  console.log("initMap")
+  const map = new google
+  .maps.Map(document.getElementById("map"), {
     mapTypeControl: false,
     center: SCU,
     zoom: 15,
@@ -24,10 +29,37 @@ function initMap() {
   // The marker, positioned at SCU, Santa Clara
   const marker = new google.maps.Marker({
     position: SCU,
+    label:"SCU",
     map: map,
   });
 
+  // The marker, positioned at SCU, Santa Clara
+  
+  var i = 0
+  var infowindow = new google.maps.InfoWindow();
+  var buildingInfo = document.getElementById(`building${i}`);
+  while (buildingInfo !== null) {
+    console.log(buildingInfo.innerText)
+    var building = JSON.parse(buildingInfo.innerText)
+    console.log(building)
+    const marker = new google.maps.Marker({
+      position: {lat:building['key'][0], lng:building['key'][1]},
+      map: map,
+      label: labels[labelIndex++ % labels.length]
+    });
+    makeInfoWindowEvent(map, infowindow, "test" + i, marker);
+    i++
+    buildingInfo = document.getElementById(`building${i}`)
+  }
+
   new AutocompleteDirectionsHandler(map);
+}
+
+function makeInfoWindowEvent(map, infowindow, contentString, marker) {
+  google.maps.event.addListener(marker, 'click', function() {
+    infowindow.setContent(contentString);
+    infowindow.open(map, marker);
+  });
 }
 
 class AutocompleteDirectionsHandler {
@@ -133,5 +165,14 @@ class AutocompleteDirectionsHandler {
   }
 }
 
-window.initMap = initMap;
+
+window.initMap = initMap
+
+
+
+
+
+
+
+
 

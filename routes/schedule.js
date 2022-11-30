@@ -18,27 +18,23 @@ router.use(bodyParser.json())
 router.use(express.static('public'))
 
 router.get("/",ensureAuth, async(req,res)=>{
-    //console.log(req.user)
-    let userImg = ''
-    let user = await User.findOne({ email: req.user.email})
+    console.log("url" + req.url)
+    let userCourse
+    let user = await User.findOne({ googleId: req.params.user})
+
     if(user){
-        userImg = user.image
+        userCourse = await UserCourse.find({email: user.email})
     }
     
-    let userCourse = await UserCourse.find({email: user.email})
-
     if (userCourse) {
         console.log(userCourse)
     }
 
     res.render('schedule',{
         msg:"user",
-        url: req.url,
-        userId: user.googleId,
-        userImg: userImg,
-        key: api_key,
-        userCourse:userCourse,
-        userName: req.user.firstName + ' ' + req.user.lastName,
+        url: req.originalUrl,
+        user:user,
+        userCourse:userCourse
     })
 })
 
@@ -194,5 +190,6 @@ router.post('/getData', ensureAuth,checkSchema(ECampus),async (req ,res)=>{
     message: 'Registration successful',
     })
 })
+
 
 module.exports = router;

@@ -3,6 +3,7 @@ let bodyParser = require('body-parser')
 let cookieParser = require('cookie-parser')
 let dotenv = require('dotenv')
 const { ensureAuth, ensureGuest } = require('../middleware/auth')
+const User = require('../models/User')
 
 dotenv.config()
 
@@ -13,15 +14,23 @@ router.use(cookieParser())
 router.use(bodyParser.json())
 router.use(express.static('public'))
 
-router.get('/', ensureAuth, (req ,res)=>{
+router.get('/', ensureAuth, async (req ,res)=>{
+    let user 
+    console.log("url" + req.url)
+    if(req.user){
+        user = req.user
+    }else{
+        user = await User.findOne({googleId: req.params.user})
+    }
+
     res.render('map',{
         msg:"user",
-        url: req.url,
-        userId: req.user.googleId,
-        userImg: req.user.image,
+        url: req.originalUrl,
+        user:user,
         key: api_key,
-        userName: req.user.firstName + ' ' + req.user.lastName,
+        
     })
 })
+
 
 module.exports = router

@@ -4,18 +4,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SCU Map Scheduler</title>
     <link rel="stylesheet" href="stylesheets/base.css">
-    <link rel="stylesheet" href="stylesheets/nav.css">
+    <link defer rel="stylesheet" href="stylesheets/nav.css">
     <link rel="stylesheet" href="stylesheets/profile.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script src = "javascripts/date-fns.js"></script>
     <script src="javascripts/calendar.js"></script>
-    <%if(userinfo){%>
-        <%if(userinfo != ''){%>
-            <script async src = "https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
-            <link rel="stylesheet" href="stylesheets/user.css">
+    <%if(url){%>
+        <%console.log(url)%>
+        <%if(url.match('schedule')){%>
+            
+            <script src = "https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
             <link defer rel="stylesheet" href="stylesheets/calendar.css">
             <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
         <%}%>
+        <%if(url.match('user')){%>
+            <link rel="stylesheet" href="stylesheets/user.css">
+        <%}%>
+        
     <%}%>
     
     <script type="module" src="javascripts/map.js"></script>

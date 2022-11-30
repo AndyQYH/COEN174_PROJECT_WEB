@@ -3,8 +3,7 @@ let bodyParser = require('body-parser')
 let cookieParser = require('cookie-parser')
 let dotenv = require('dotenv')
 const User = require('../models/User')
-const { ensureAuth, ensureGuest } = require('../middleware/auth')
-
+const { ensureAuth, ensureGuest, checkUser} = require('../middleware/auth')
 dotenv.config()
 
 const webpage = process.env.WEBPAGE
@@ -15,25 +14,26 @@ router.use(cookieParser())
 router.use(bodyParser.urlencoded({extended : true}))
 router.use(bodyParser.json())
 router.use(express.static('public'))
+//router.all('*', checkUser)
 
-router.get('/', ensureGuest,(req ,res)=>{
+router.get('/',async (req ,res)=>{
     
-    let id, userImg
-    if(req.user){
-        id = req.user.googleId
-        userImg = req.user.image
+    let user
+
+    console.log("url " + req.originalUrl)
+
+    if(!req.user){
+        user = await User.findOne({googleId:'guest'})
     }else{
-        id = 'guest'
-        userImg = ""
+        user = req.user
     }
+    console.log(user.displayName)
 
     res.render('index',{
         msg:'index',
-        url:req.url,
+        url:req.originalUrl,
         key:api_key,
-        userName: '',
-        userId: id,
-        userImg: userImg
+        user: user
     })
     
 })

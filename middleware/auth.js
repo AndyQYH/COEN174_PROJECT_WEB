@@ -1,47 +1,54 @@
 const User = require('../models/User')
+let dotenv = require('dotenv')
+
+dotenv.config()
+
+api_key = process.env.GOOGLE_KEY
 
 module.exports = {
     // if user is authenticated the redirected to next page else redirect to login page
     ensureAuth: async function (req, res, next) {
       console.log("ensure auth ...")
       if (req.isAuthenticated()) {
+        if(req.params.user != req.user.googleId){
+          res.status(403).render('error',{
+            msg:'Access Not Allowed',
+            status: 403,
+            user: req.user,
+            key: api_key,
+            url:req.url
+          })
+        }else{
+          return next()
+        }
         return next()
       } else {
-        if(req.params.id){
+        if(req.params.user){
           console.log("has google id ... ")
-          console.log(req.params.id)
-          if(req.user){
-            let user = await User.findOne({ googleId: req.params.id})
-            if(user){
-              if(user.id != req.user.GoogleId){
-                res.status(403).render('error',{
-                  msg:'Access Not Allowed',
-                  status: 403,
-                  userinfo: req.user.email,
-                  userId: req.user.googleId,
-                  userImg: req.user.image,
-                  key: api_key
-                })
-              }
-            }else{
-              res.redirect(`/user/${req.params.id}`)
-            }
-             
+          console.log(req.params.user)
+          
+          if(req.params.user == 'guest'){
+            console.log('guest bypass')
+            return next()
           }else{
-            
+            let user = await User.findOne({googleId:'guest'})
             res.status(404).render('error',{
               msg:'Page Not Found',
               status: 404,
-              userinfo: "",
-              userId: req.user.googleId,
-              userImg: req.user.image,
-              key: api_key
+              user:user,
+              key: api_key,
+              url:req.url
             })
-            
-          }
-          
+          }        
         }else{
-          res.redirect('/auth/google')
+            let user = await User.findOne({googleId:'guest'})
+              res.status(404).render('error',{
+                msg:'Page Not Found',
+                status: 404,
+                user:user,
+                key: api_key,
+                url:req.url
+              })
         }
         
       }
@@ -58,4 +65,22 @@ module.exports = {
         res.redirect(`/user/${req.user.GoogleId}`)
       }
     },
+    checkUser: async function(req, res, next) {
+      const SecurePaths = ['/', '/user', '/auth'];
+      console.log(req.url.split('/')[0])
+      if (SecurePaths.includes(req.url.split('/')[0]+"/")) return next();
+    
+      //authenticate user
+      console.log("not authenticated")
+      let user = await User.findOne({googleId:'guest'})
+              res.status(404).render('error',{
+                msg:'Page Not Found',
+                status: 404,
+                user:user,
+                key: api_key,
+                url:req.url
+              })
+
+      
+    }
   }

@@ -5,7 +5,7 @@ let dotenv = require('dotenv')
 let mapRouter = require('./map')
 let scheduleRouter = require('./schedule')
 const User = require('../models/User')
-const { ensureAuth, ensureGuest } = require('../middleware/auth')
+const { ensureAuth, ensureGuest, checkUser} = require('../middleware/auth')
 
 dotenv.config()
 
@@ -16,9 +16,8 @@ router.use(cookieParser())
 router.use(bodyParser.json())
 router.use(bodyParser.urlencoded({extended : true}))
 router.use(express.static('public'))
-router.use("/:id/map", mapRouter)
-router.use("/:id/schedule", scheduleRouter)
-
+router.use("/:user/map", mapRouter)
+router.use("/:user/schedule", scheduleRouter)
 
 router.get('/',(req ,res)=>{
     if(req.user){
@@ -29,21 +28,20 @@ router.get('/',(req ,res)=>{
     
 })
 
-router.get('/:id', ensureAuth, async (req, res)=>{
+router.get('/:user', ensureAuth, async (req, res)=>{
 
-    let userImg = ''
-    let user = await User.findOne({ email: req.user.email})
-    if(user){
-        userImg = user.image
-    }
+    let user = await User.findOne({ googleId: req.params.user})
+    console.log(user)
+    console.log("url " + req.originalUrl)
+    console.log(req.params)
+
     res.render('user',{
         msg:"user",
-        userName: req.user.firstName + ' ' + req.user.lastName,
-        url: req.url,
-        userId: req.user.googleId ,
-        userImg: userImg,
+        url: req.originalUrl,
+        user:user,
         key: api_key
     })
 })
+
 
 module.exports = router

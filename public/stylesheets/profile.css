@@ -50,3 +50,15 @@ body {
   font-size: 1.3rem;
   margin: 1rem 0;
 }
+
+.user-profile.form{
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  padding:var(--padding-md);
+  margin: var(--margin-md) 0;
+  background: linear-gradient(45deg, #a7cae8, #779cb3);
+  transition: all 0.2s;
+}
+
+.user-profile.form:hover{
+  transform: scale(105%);
+}

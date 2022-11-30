@@ -36,7 +36,7 @@ body{
 }
 
 main{
-    border-radius:var(--border-radius-md) 0 0 var(--border-radius-md);
+    
     flex:1 0 auto;
     overflow:auto;
     height:100%;
@@ -150,3 +150,29 @@ span{
     max-height: 600px;
 }
 
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: max-content;
+    height: fit-content;
+    background: #4E9CAF;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    line-height: 25px;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.btn:hover{
+    transform: scale(105%);
+    color:var(--accent-color)
+}
+
+.header-section{
+    display:flex;
+    align-items: center;
+}

@@ -9,19 +9,19 @@
                     </a>
                 </div>
             <%}else{%>
-                <div class="section" style="text-align: center;">
+                <div class="header-section" style="text-align: center;">
                     <span><%=user.email%></span>
                     <img src="<%=user.image%>" alt="user-profile-pic" class="user-profile pic" width="35px" height="35px">
-                    <a class="navbar-brand btn btn-danger btn-small" href="/auth/logout">
+                    <a  href="/auth/logout" class="btn">
                         <span>Logout</span>
                     </a>
                 </div>
-                
+                <label for="">Enter Ecampus Credentials for Schedule Update</label>
                 <form action="/user/<%=user.googleId%>/schedule/getData" method="POST" class = "user-profile form">
                     <label style="color:black" for="username">username:</label>
-                    <input type="text" id="username" name="username"><br><br>
+                    <input type="text" id="username" name="username" placeholder="Ecampus Username"><br><br>
                     <label style="color:black" for="password">password:</label>
-                    <input type="password" id="password" name="password"><br><br>
+                    <input type="password" id="password" name="password" placeholder="Ecampus Password"><br><br>
                     <input type="submit" value="Submit">
                 </form>
             <%}%>

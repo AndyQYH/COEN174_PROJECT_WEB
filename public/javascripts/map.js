@@ -27,7 +27,7 @@ function initMap() {
   });
 
   // The marker, positioned at SCU, Santa Clara
-  const marker = new google.maps.Marker({
+  const markerSCU = new google.maps.Marker({
     position: SCU,
     label:"SCU",
     map: map,
@@ -38,6 +38,9 @@ function initMap() {
   var i = 0
   var infowindow = new google.maps.InfoWindow();
   var buildingInfo = document.getElementById(`building${i}`);
+  let directionsService = new google.maps.DirectionsService();
+  let directionsRenderer = new google.maps.DirectionsRenderer();
+  directionsRenderer.setMap(map);
   while (buildingInfo !== null) {
     console.log(buildingInfo.innerText)
     var building = JSON.parse(buildingInfo.innerText)
@@ -47,7 +50,7 @@ function initMap() {
       map: map,
       label: labels[labelIndex++ % labels.length]
     });
-    makeInfoWindowEvent(map, infowindow,Object.keys(building)[0], marker);
+    makeInfoWindowEvent(map, infowindow,Object.keys(building)[0], marker, markerSCU, directionsService, directionsRenderer);
     i++
     buildingInfo = document.getElementById(`building${i}`)
   }
@@ -55,10 +58,11 @@ function initMap() {
   new AutocompleteDirectionsHandler(map);
 }
 
-function makeInfoWindowEvent(map, infowindow, contentString, marker) {
+function makeInfoWindowEvent(map, infowindow, contentString, marker, SCU, directionsService, directionsRenderer) {
   google.maps.event.addListener(marker, 'click', function() {
     infowindow.setContent(contentString);
     infowindow.open(map, marker);
+    calcRoute(marker,SCU, directionsService, directionsRenderer)
   });
 }
 
@@ -165,6 +169,24 @@ class AutocompleteDirectionsHandler {
   }
 }
 
+
+
+function calcRoute(marker, SCU, directionsService, directionsRenderer) {
+
+  var request = {
+    origin:SCU.getPosition(),
+    destination:marker.getPosition(),
+    travelMode: google.maps.TravelMode.WALKING
+  }
+
+  directionsService.route(request, (response, status)=>{
+    if(status == 'OK'){
+      directionsRenderer.setDirections(response);
+    }else {
+      window.alert("Directions request failed due to " + status);
+    }
+  })
+}
 
 window.initMap = initMap
 

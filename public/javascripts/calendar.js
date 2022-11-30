@@ -61,6 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
   });
+  calendar.changeView('timeGridWeek');
   calendar.render();
 });
   
